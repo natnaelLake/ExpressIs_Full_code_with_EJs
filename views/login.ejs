@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%-include('head')%>
+    <%-include('layout')%>
+</head>
+<body>
+    <header>
+    </header>
+            <form action="/data" method="post">
+                <div class="jumbotron container">
+                        <div class="container">
+                            <label for="label">User Name</label>
+                            <input class="form-control" type="text" name="name">
+                        </div>
+                    <br>
+                        <div class="container">
+                            <label for="pass">Last Name</label>
+                            <input class="form-control" type="text" name="lname" id="pass">
+                        </div>
+                    <br>
+                    <div class="container">
+                        <label for="pass">Email</label>
+                        <input class="form-control" type="email" name="email" id="pass">
+                    </div>
+                <br>
+                <div class="container">
+                    <label for="pass">Password</label>
+                    <input class="form-control" type="password" name="password" id="pass">
+                </div>
+            <br>
+                        <input class="btn float-right btn-primary text-center justify-content" type="submit" value="Submit"></input>
+                 </div>
+            </form>
+
+    <footer>
+        <%- include('footer'); %>
+      </footer>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('head')%>
+</head>
+<body>
+    <%- include('header')%>
+    <h1 class="text-center"><b>My Dear Families </b></h1>
+    <%userList.forEach(stud =>{%>
+        <ul>
+            <li id ='fam' style="list-style-type: none;" class="text-center"><h2 ><%= stud.name%></h2></li>
+        </ul>
+    <%})%>
+    <%- include('footer')%>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%-include('head')%>
+</head>
+<body>
+    <%-include('header')%>
+    <% if(entries.length) { %>
+         <% entries.forEach((entry)=>{ %>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="tex-muted pull-right">
+                            <%= entry.name%>
+                            <%=entry.password%>
+                        </div>
+                    </div>
+                </div>
+        <% })%>
+     <%}
+      else { %>
+         No entries! <a href="/login">Add One</a>
+        <%}%>
+      <%include('footer')%>
+</body>
+</html>

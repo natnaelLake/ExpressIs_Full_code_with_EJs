@@ -1,9 +1,16 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const db = require('../app')
+const Store = require('../models/Store');
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+
+router.get('/', (req, res) => {
+    // console.log(req.hostname)
+    Store.find({}, (err,name) => {
+        res.render('users', {
+            userList: name
+        });
+    })  
+})
 
 module.exports = router;
