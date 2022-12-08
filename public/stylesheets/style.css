@@ -1,5 +1,5 @@
 body {
-  padding: 50px;
+  padding: 10px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -9,4 +9,42 @@ a {
 #fam{
   text-decoration: none;
   list-style-type: none;
+}
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  top: 10;
+  z-index: 100;
+  padding: 70px 0 0 10px;
+  border-right: 1px solid #d3d3d3;
+}
+
+.left-sidebar {
+  position: sticky;
+  top:0;
+  height: calc(100vh - 70px)
+}
+
+.sidebar-nav li .nav-link {
+  color: rgb(230, 220, 228);
+  font-weight: 500;
+}
+.sidebar-nav li .nav-link:hover{
+  background-color: aqua;
+  color: black;
+}
+main {
+  padding-top: 10px;
+}
+main .card {
+  margin-bottom: 20px;
+}
+.jobs{
+  padding-top: 10px;
+}
+#imgId{
+  height: 200px;
+
 }

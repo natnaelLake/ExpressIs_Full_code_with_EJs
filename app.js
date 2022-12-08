@@ -19,6 +19,12 @@ const homeRouter = require('./routes/home');
 const aboutRouter = require('./routes/about')
 const dataRouter = require('./routes/data');
 const userRouter = require('./routes/users')
+const dashRouter = require('./routes/admin/dash');
+const candRouter = require('./routes/admin/can')
+const jobRouter = require('./routes/admin/jobs');
+const orderRouter = require('./routes/admin/orders');
+const reportRouter = require('./routes/admin/orders');
+
 
 var app = express();
 
@@ -38,6 +44,12 @@ app.use('/home', homeRouter)
 app.use('/about',aboutRouter)
 app.use('/data', dataRouter);
 app.use('/users', userRouter);
+app.use('/dash', dashRouter);
+app.use('/can', candRouter);
+app.use('/jobs', jobRouter);
+app.use('/order', orderRouter);
+app.use('/report', reportRouter);
+
 
 
 // catch 404 and forward to error handler

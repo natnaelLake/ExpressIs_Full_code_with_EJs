@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%-include('../head')%>
+</head>
+<body>
+    <%-include('../header')%>
+    <div class="container-fluid">
+        <div class="row">
+            <%-include('./dashHead')%>
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                <h3 class="text-center text-primary">Candidates</h3>
+                <hr class="text-primary">
+                <div class="table-responsive">
+                <table class="table table-dark">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+                        <th scope="col">Email</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    
+                        <%userList.forEach(stud =>{%>
+                            <tr>
+                                <th scope="row"><%= stud.__id %></th>
+                                <td><%= stud.name %> </td>
+                                <td><%= stud.last %></td>
+                                <td><%= stud.email %></td>
+                            </tr>
+                        <%})%>
+    <%- include('../footer')%>
+    </tbody>
+    </table>
+    </div>
+    </main>
+    </div>
+    </div>
+</body>
+</html>
