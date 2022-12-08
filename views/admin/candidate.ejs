@@ -22,10 +22,11 @@
                     </tr>
                     </thead>
                     <tbody>
-                    
+                        <% var key = 0 %>
                         <%userList.forEach(stud =>{%>
+                            
                             <tr>
-                                <th scope="row"><%= stud.__id %></th>
+                                <th scope="row"><%= ++key %></th>
                                 <td><%= stud.name %> </td>
                                 <td><%= stud.last %></td>
                                 <td><%= stud.email %></td>
