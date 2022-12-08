@@ -6,16 +6,11 @@ var logger = require('morgan');
 const mongoose = require('mongoose');
 const mongoClient = require('mongodb').mongoCleint;
 const assert = require('assert');
-const url = 'mongodb://localhost:27017/dayOne';
+const url = 'mongodb://localhost:27017/natnael';
 const Store = require('./models/Store');
 
 
-const db = mongoose.connect('mongodb+srv://natnael:nati1212@naticluster.gbkr5zo.mongodb.net/?retryWrites=true&w=majority',{
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
-  .then(() => console.log('mongo connected'))
-   .catch(err => console.log(err));
+const db = mongoose.connect(url);
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const loginRouter = require('./routes/login');
@@ -28,7 +23,7 @@ const candRouter = require('./routes/admin/can')
 const jobRouter = require('./routes/admin/jobs');
 const orderRouter = require('./routes/admin/orders');
 const reportRouter = require('./routes/admin/orders');
-
+const deltRouter = require('./routes/admin/delete')
 
 var app = express();
 
@@ -53,7 +48,7 @@ app.use('/can', candRouter);
 app.use('/jobs', jobRouter);
 app.use('/order', orderRouter);
 app.use('/report', reportRouter);
-
+app.use('/delete/',deltRouter)
 
 
 // catch 404 and forward to error handler

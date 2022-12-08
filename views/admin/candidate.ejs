@@ -19,17 +19,18 @@
                         <th scope="col">First Name</th>
                         <th scope="col">Last Name</th>
                         <th scope="col">Email</th>
+                        <th scope="col">Status</th>
                     </tr>
                     </thead>
                     <tbody>
                         <% var key = 0 %>
                         <%userList.forEach(stud =>{%>
-                            
                             <tr>
                                 <th scope="row"><%= ++key %></th>
                                 <td><%= stud.name %> </td>
                                 <td><%= stud.last %></td>
                                 <td><%= stud.email %></td>
+                                <td><a href="/delete/<%= stud._id %>"><input type="submit" value="Delete" class="btn-outline-danger text-center"></a></td>
                             </tr>
                         <%})%>
     <%- include('../footer')%>
