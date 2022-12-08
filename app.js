@@ -10,8 +10,12 @@ const url = 'mongodb://localhost:27017/dayOne';
 const Store = require('./models/Store');
 
 
-const db = mongoose.connect('mongodb://localhost:27017/natnael')
-
+const db = mongoose.connect('mongodb+srv://natnael:nati1212@naticluster.gbkr5zo.mongodb.net/?retryWrites=true&w=majority',{
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+  .then(() => console.log('mongo connected'))
+   .catch(err => console.log(err));
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const loginRouter = require('./routes/login');
