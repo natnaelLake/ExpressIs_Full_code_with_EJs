@@ -9,78 +9,22 @@
         <div class="row">
             <%-include('dashHead')%>
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-               
                 <h3 class="text-center text-primary">Jobs</h3>
                     <hr>
-                    <div class="row row-cols-1 row-cols-md-3 g-4">
-                        <div class="col">
-                            <div class="card shadow rounded-5">
-                                <img id = 'imgId'src="../images/287677588_561545558716720_962843881644276446_n.jpg"  alt="">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card Title</h5>
-                                    <p class="card-text">
-                                        Lorem ipsum dolor sit amet 
-                                        consectetur adipisicing elit.
-                                        Velit quis, mollitia laboriosam 
-                                        maxime dolor similique quo 
-                                        voluptas recusandae dignissimos
-                                        minima fugiat ipsum pariatur aut in, 
-                                        nemo incidunt alias ullam ea!
-                                    </p>
+                    <% imageData.forEach(image => { %>
+                        <div class="row row-cols-1 row-cols-md-3 g-4">
+                            <div class="col">
+                                <div class="card shadow rounded-5">
+                                    <img id = 'imgId'src="../images/<%= image.name %>"  alt="">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><%= image.title %></h5>
+                                        <p class="card-text">
+                                            <%= image.desc%>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col">
-                            <div class="card shadow rounded-5">
-                                <img id = 'imgId'src="../images/314825692_199629965777390_2941680804198588196_n.jpg"  alt="">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card Title</h5>
-                                    <p class="card-text">
-                                        Lorem ipsum dolor sit amet 
-                                        consectetur adipisicing elit.
-                                        Velit quis, mollitia laboriosam 
-                                        maxime dolor similique quo 
-                                        voluptas recusandae dignissimos
-                                        minima fugiat ipsum pariatur aut in, 
-                                        nemo incidunt alias ullam ea!
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card shadow rounded-5">
-                                <img id = 'imgId'src="../images/images of WTF.jpeg"  alt="">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card Title</h5>
-                                    <p class="card-text">
-                                        Lorem ipsum dolor sit amet 
-                                        consectetur adipisicing elit.
-                                        Velit quis, mollitia laboriosam 
-                                        maxime dolor similique quo 
-                                        voluptas recusandae dignissimos
-                                        minima fugiat ipsum pariatur aut in, 
-                                        nemo incidunt alias ullam ea!
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card shadow rounded-5">
-                                <img id = 'imgId'src="../images/316257435_202466598827060_105354284875507668_n.jpg"  alt="">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card Title</h5>
-                                    <p class="card-text">
-                                        Lorem ipsum dolor sit amet 
-                                        consectetur adipisicing elit.
-                                        Velit quis, mollitia laboriosam 
-                                        maxime dolor similique quo 
-                                        voluptas recusandae dignissimos
-                                        minima fugiat ipsum pariatur aut in, 
-                                        nemo incidunt alias ullam ea!
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+                    <%})%>
             </main>
         </div>
     </div>

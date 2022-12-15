@@ -8,6 +8,7 @@ const mongoClient = require('mongodb').mongoCleint;
 const assert = require('assert');
 const url = 'mongodb://localhost:27017/natnael';
 const Store = require('./models/Store');
+const imageFile = require('./models/Image');
 
 
 const db = mongoose.connect(url);
@@ -24,8 +25,37 @@ const jobRouter = require('./routes/admin/jobs');
 const orderRouter = require('./routes/admin/orders');
 const reportRouter = require('./routes/admin/orders');
 const deltRouter = require('./routes/admin/delete')
+const imgRouter = require('./routes/admin/image');
+const recImage = require('./routes/admin/receiveImage');
+
 
 var app = express();
+
+function auth(req,res,next) {
+  console.log(req.headers);
+
+  var authHeader = req.headers.authorization;
+  if (!authHeader) {
+    const err = new Error('You are not authenticated!');
+    res.setHeader('www-Authenticate', 'Basic')
+    err.status = 401;
+    return next(err);
+  }
+  var auth = new Buffer(authHeader.split(' ')[1], 'base64').toString().split(':');
+  var username = auth[0];
+  var password = auth[1];
+  if (username === 'natnael' && password === 'nati1212') {
+    next();
+  }
+  else {
+    const err = new Error('You are not authenticated!');
+    res.setHeader('www-Authenticate', 'Basic')
+    err.status = 401;
+    return next(err);
+  }
+}
+app.use(auth)
+
 
 // view engine setup
 app.set('views', path.resolve(__dirname, 'views'));
@@ -48,7 +78,9 @@ app.use('/can', candRouter);
 app.use('/jobs', jobRouter);
 app.use('/order', orderRouter);
 app.use('/report', reportRouter);
-app.use('/delete/',deltRouter)
+app.use('/delete/', deltRouter);
+app.use('/add', imgRouter);
+app.use('/image', recImage);
 
 
 // catch 404 and forward to error handler
