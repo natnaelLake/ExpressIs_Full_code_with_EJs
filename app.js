@@ -1,7 +1,10 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
-var cookieParser = require('cookie-parser');
+const session = require('express-session')
+const FileStore = require('session-file-store')(session)
+
+// var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const mongoose = require('mongoose');
 const mongoClient = require('mongodb').mongoCleint;
@@ -27,32 +30,53 @@ const reportRouter = require('./routes/admin/orders');
 const deltRouter = require('./routes/admin/delete')
 const imgRouter = require('./routes/admin/image');
 const recImage = require('./routes/admin/receiveImage');
+const mainRouter = require('./routes/MainLogin')
+
+
+
+
 
 
 var app = express();
 
+app.use('/',indexRouter)
+app.use('/',mainRouter)
 function auth(req,res,next) {
-  console.log(req.headers);
-
-  var authHeader = req.headers.authorization;
-  if (!authHeader) {
-    const err = new Error('You are not authenticated!');
-    res.setHeader('www-Authenticate', 'Basic')
-    err.status = 401;
-    return next(err);
-  }
-  var auth = new Buffer(authHeader.split(' ')[1], 'base64').toString().split(':');
-  var username = auth[0];
-  var password = auth[1];
-  if (username === 'natnael' && password === 'nati1212') {
-    next();
+  console.log(req.session);
+  if (!req.session.user) {
+    var authHeader = req.headers.authorization;
+    if (!authHeader) {
+      const err = new Error('You are not authenticated!');
+      res.setHeader('www-Authenticate', 'Basic')
+      err.status = 401;
+      return next(err);
+    }
+    var auth = new Buffer(authHeader.split(' ')[1], 'base64').toString().split(':');
+    var username = auth[0];
+    var password = auth[1];
+    if (username === 'natnael' && password === 'nati1212') {
+      req.session.user = 'admin';
+      next();
+    }
+    else {
+      const err = new Error('You are not authenticated!');
+      res.setHeader('www-Authenticate', 'Basic')
+      err.status = 401;
+      return next(err);
+    }
   }
   else {
-    const err = new Error('You are not authenticated!');
-    res.setHeader('www-Authenticate', 'Basic')
-    err.status = 401;
-    return next(err);
-  }
+    if (req.session.user === 'admin')
+    {
+      next();
+    }
+    else {
+      const err = new Error('You are not authenticated!');
+      err.status = 401;
+      return next(err);
+    }
+    }
+ 
 }
 app.use(auth)
 
@@ -61,13 +85,20 @@ app.use(auth)
 app.set('views', path.resolve(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-// app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+// app.use(logger('dev'));
+// app.use(cookieParser('natnaelnati-1212-Ethio-amber_addis_ababa'));
 app.use(express.static(path.resolve(__dirname, 'public')));
+app.use(session({
+  name: 'session-id',
+  secret: 'natnaelnati-1212-Ethio-amber_addis_ababa',
+  saveUninitialized: false,
+  resave: false,
+  store:new FileStore()
+}))
 
-app.use('/',indexRouter)
+
 app.use('/login', loginRouter);
 app.use('/home', homeRouter)
 app.use('/about',aboutRouter)

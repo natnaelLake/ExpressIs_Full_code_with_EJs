@@ -4,34 +4,49 @@ const Image = require('../../models/Image');
 const fs = require('fs');
 const { check, validationResult } = require('express-validator')
 const multer = require('multer')
-var path = require('path');
+const path = require('path');
 
 // var entries = [];
 // router.locals.entries = entries;
 
 
-var storage = multer.diskStorage({
+const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'public/images')
+        cb(null, 'public/images');
+    },
+    filename: (req, file, cb) => {
+        cb(null,file.originalname)
     }
 });
-var upload = multer({ storage: storage })
+
+const imageFileFilter = (req, res, cb) => {
+    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)&/)) {
+        return cb(new Error( 'You can upload only image files!'),false)
+    }
+    else {
+        cb(null, true);
+    }
+}
+const upload = multer({ storage: storage ,fileFilter:imageFileFilter})
 router.post('/',upload.single('image'), async (req, res)=>{
-    var img = fs.readFileSync(req.file.path);
-    var encode_image = img.toString('base64');
-    const items = {
-        title: req.body.title,
-        desc: req.body.desc,
-        img: {
-            data: new Buffer.from(encode_image,'base64'),
-            contentType: req.file.mimetype        }
+    if (req.body !== '') {
+        const items = {
+            title: req.body.title,
+            desc: req.body.desc,
+            img: {
+                data: fs.readFileSync(path.resolve(__dirname + '/public/images/' + req.file.filename )),
+                contentType: req.file.mimetype        }
     }
     Image.create(items, (err, items) => {
         if (err) {
             console.log(err);
         }
     })   
-    res.redirect('/jobs')
+       res.redirect('/jobs')
+   }
+   else {
+       redirect('/addCard')
+   }
 }
 );
 
