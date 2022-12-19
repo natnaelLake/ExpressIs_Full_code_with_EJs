@@ -11,20 +11,25 @@
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
                 <h3 class="text-center text-primary">Jobs</h3>
                     <hr>
+                    <div class="row row-cols-1 row-cols-md-3 g-4">
                     <% imageData.forEach(image => { %>
-                        <div class="row row-cols-1 row-cols-md-3 g-4">
                             <div class="col">
                                 <div class="card shadow rounded-5">
-                                    <img id = 'imgId'src="../images/<%= image.name %>"  alt="">
+                                    <img id = 'imgId'
+                                                    src="data:image/<%=image.img.contentType %>;base64,
+                                                    <%=image.img.data.toString('base64') %>"
+                                                    alt=""
+                                    >
                                     <div class="card-body">
-                                        <h5 class="card-title"><%= image.title %></h5>
-                                        <p class="card-text">
+                                        <h3 class="card-title text-center"><b><%= image.title %></b></h3>
+                                        <p class="card-text text-center">
                                             <%= image.desc%>
                                         </p>
                                     </div>
                                 </div>
                             </div>
                     <%})%>
+                </div>
             </main>
         </div>
     </div>

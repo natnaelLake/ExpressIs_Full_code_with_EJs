@@ -19,22 +19,24 @@ const storage = multer.diskStorage({
     }
 });
 
-const imageFileFilter = (req, res, cb) => {
-    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)&/)) {
-        return cb(new Error( 'You can upload only image files!'),false)
-    }
-    else {
-        cb(null, true);
-    }
-}
-const upload = multer({ storage: storage ,fileFilter:imageFileFilter})
+// const imageFileFilter = (req, res, cb) => {
+// //     if (!req.file.originalname.match(/\.(jpg|jpeg|png|gif)&/)) {
+// //         return cb(new Error( 'You can upload only image files!'),false)
+// //     }
+// //     else {
+// //         cb(null, true);
+// //     }
+// }
+const upload = multer({ storage: storage})
+router.get('/', (req, res) => {
+    res.render('admin/addCard')
+})
 router.post('/',upload.single('image'), async (req, res)=>{
-    if (req.body !== '') {
         const items = {
             title: req.body.title,
             desc: req.body.desc,
             img: {
-                data: fs.readFileSync(path.resolve(__dirname + '/public/images/' + req.file.filename )),
+                data: fs.readFileSync(path.join(__dirname + '../../../public/images/' + req.file.filename )),
                 contentType: req.file.mimetype        }
     }
     Image.create(items, (err, items) => {
@@ -44,10 +46,7 @@ router.post('/',upload.single('image'), async (req, res)=>{
     })   
        res.redirect('/jobs')
    }
-   else {
-       redirect('/addCard')
-   }
-}
+  
 );
 
 module.exports = router;
