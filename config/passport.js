@@ -6,6 +6,9 @@ const Register = require('../models/RegUser')
 module.exports = function (passport) {
     passport.use(
         new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
+            if (!email || !password) {
+                return done(null, false, { message: 'Please fill the filled' });
+            }
             Register.findOne({ email: email }).then(value => {
                 if (!value) {
                     return done(null, false, { message: "That email is not registered." })
@@ -24,7 +27,7 @@ module.exports = function (passport) {
                 })
             }).catch(e => { console.log(e) });
         })
-    );
+    ); 
     passport.serializeUser((value,done) => {
         done(null,value.id)
     })

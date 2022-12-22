@@ -5,6 +5,7 @@ const fs = require('fs');
 const { check, validationResult } = require('express-validator')
 const multer = require('multer')
 const path = require('path');
+const checkAuth = require('../authentication')
 
 // var entries = [];
 // router.locals.entries = entries;
@@ -28,10 +29,10 @@ const storage = multer.diskStorage({
 // //     }
 // }
 const upload = multer({ storage: storage})
-router.get('/', (req, res) => {
+router.get('/', checkAuth,(req, res) => {
     res.render('admin/addCard')
 })
-router.post('/',upload.single('image'), async (req, res)=>{
+router.post('/',checkAuth,upload.single('image'), async (req, res)=>{
         const items = {
             title: req.body.title,
             desc: req.body.desc,

@@ -3,19 +3,24 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const User = require('../models/User')
 const passport = require('passport')
+const notAuth = require('./notAuth')
 
-router.post('/', async (req, res,next) => {
+
+
+
+module.exports= router.post('/',notAuth,async (req, res, next) => {
     try {
         passport.authenticate('local', {
             successRedirect: '/can',
             failureRedirect: '/mainLogin',
+            badRequestMessage:'Please fill the field',
             failureFlash:true
         })(req,res,next)
     } catch(e) {
         console.log(e)
     }
 })
-router.get('/', (req, res) => {
+router.get('/', notAuth,(req, res) => {
     res.render('LogPage')
 })
-module.exports = router;
+

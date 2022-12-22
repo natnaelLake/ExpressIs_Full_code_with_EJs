@@ -4,13 +4,19 @@ body {
 }
 
 a {
-  color: #00B7FF;
+  color: #ea00ff;
+  text-decoration: none;
 }
 #fam{
   text-decoration: none;
   list-style-type: none;
 }
-
+#btnLog:hover{
+  color: beige;
+}
+#btnReg:hover{
+  color:beige
+}
 .sidebar {
   position: fixed;
   left: 0;

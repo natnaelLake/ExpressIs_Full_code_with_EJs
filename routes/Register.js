@@ -2,11 +2,13 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const Register = require('../models/RegUser')
+const canInt = require('./notAuth')
 
-router.get('/', (req, res) => {
+
+router.get('/', canInt,(req, res) => {
     res.render('Register')
 })
-router.post('/', async (req, res) => {
+router.post('/', canInt,async (req, res) => {
     const errors = [];
     
     const { name, last, password,email, phone, age } = req.body;
@@ -34,7 +36,7 @@ router.post('/', async (req, res) => {
             errors,
             name,
             email,
-            pass,
+            password,
             last,
             phone
         })
