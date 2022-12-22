@@ -4,6 +4,9 @@ const schema = mongoose.Schema({
     name: String,
     last: String,
     email: String,
-    password:String
+    status: {
+        type: String,
+        default:"UnAccepted"
+    }
 })
 module.exports = mongoose.model('Store', schema);

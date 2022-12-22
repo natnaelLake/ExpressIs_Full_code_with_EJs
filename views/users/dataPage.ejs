@@ -5,9 +5,11 @@
     <meta http-equiv="refresh" content="2">
 </head>
 <body>
+    <%-include('../header')%>
+    
     <div class="container-fluid">
         <div class="row">
-            <main role="main" class="col-md-9  col-lg-10 px-4">
+            <main role="main" class="col-md-9 ml-sm-4 col-lg-10 px-4">
                 <!-- <h3 class="text-center text-primary">Candidates</h3> -->
                 <hr class="text-primary">
                 <div class="table-responsive">
@@ -18,22 +20,20 @@
                         <th scope="col">Name</th>
                         <th scope="col">License Code</th>
                         <th scope="col">Car Description</th>
-                        <th scope="col">Delete</th>
                         <th scope="col">Status</th>
                     </tr>
                     </thead>
                     <tbody>
                         <% var key = 0 %>
-                        <%for(const stud of userList){%>
+                        <%userList.forEach(stud =>{%>
                             <tr>
                                 <th scope="row"><%= ++key %></th>
                                 <td><%= stud.name %> </td>
                                 <td><%= stud.last %></td>
                                 <td><%= stud.email %></td>
-                                <td><a href="/delete/<%= stud._id %>"><input type="submit" value="Delete" class="btn-outline-danger text-center"></a></td>
-                                <td><a href="/update/<%= stud._id %>"><input type="submit"  value = '<%=stud.status%>' class="text-center"></a></td>
+                                <td><input type="text"  value = '<%=stud.status%>' class="text-center" disabled = "disabled"></td>
                             </tr>
-                        <%}%>
+                        <%})%>
     </tbody>
     </table>
     </div>

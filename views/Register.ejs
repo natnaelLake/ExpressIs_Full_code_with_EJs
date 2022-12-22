@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%-include('head')%>
+</head>
+<body>
+    <%-include('layout')%>
+
+    <form action="/register" method = 'post'>
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                    <div class="card bg-dark text-white rounded-5" >
+                        <div class="card-body p-5 text-center">
+                            <div class="mb-md-5 mt-md-4pb-5">
+                                <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
+                                <p class="text-white-50 mb-5">Please Enter Your User Name and password</p>
+                                <%-include('check')%>
+                                <div class="form-floating form-white mb-4">
+                                    <input 
+                                        type="text" 
+                                        name="name" 
+                                        id="email" 
+                                        class="form-control form-control-lg" 
+                                        placeholder="First Name"
+                                        value = "<%= typeof name != 'undefined'? name:''%>"
+                                        />
+                                </div>
+                                <div class="form-floating form-white mb-4">
+                                    <input 
+                                        type="text" 
+                                        name="last" 
+                                        id="email" 
+                                        class="form-control form-control-lg" 
+                                        placeholder="Last Name"
+                                        value = "<%= typeof last != 'undefined'? last:''%>"
+                                        >
+                                </div>
+                                <div class="form-floating form-white mb-4">
+                                    <input 
+                                        type="email" 
+                                        name="email" 
+                                        id="email" 
+                                        class="form-control form-control-lg" 
+                                        placeholder="Email"
+                                        value = "<%= typeof email != 'undefined'? email:''%>"
+                                        >
+                                </div>
+                                <div class="form-outline form-white mb-4">
+                                    <input 
+                                        type="password" 
+                                        name = 'password' 
+                                        class="form-control form-control-lg" 
+                                        id="pass" 
+                                        placeholder="Password"
+                                        value = "<%= typeof pass != 'undefined'? pass:''%>"
+                                        >
+                                </div>
+                                <div class="form-outline form-white mb-4">
+                                    <input 
+                                        type="tel" 
+                                        name = 'phone' 
+                                        class="form-control form-control-lg" 
+                                        id="pass" 
+                                        placeholder="Phone number"
+                                        value = "<%= typeof phone != 'undefined'? phone:''%>"
+                                        >
+                                </div>
+                                <div class="form-outline form-white mb-4">
+                                    <input type="number"  name = 'age'class="form-control form-control-lg" id="pass" placeholder="Age">
+                                </div>
+                                <p class="small mb-5 pb-lg-2"><a href="" class="text-white-50">Forget password?</a></p>
+                                    <input class="btn btn-outline-success btn-lg px-5" type="submit" value = 'Register'>
+                                    <a href="/mainLogin"><button class="btn btn-outline-success btn-lg px-5" type="submit">Login</button></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <%-include('footer')%>
+</body>
+</html>

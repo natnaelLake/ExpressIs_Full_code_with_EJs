@@ -9,6 +9,10 @@ const assert = require('assert');
 const url = 'mongodb://localhost:27017/natnael';
 const Store = require('./models/Store');
 const imageFile = require('./models/Image');
+const passport = require('passport');
+const session = require('express-session');
+const flash = require('connect-flash');
+require('./config/passport')(passport)
 
 
 const db = mongoose.connect(url);
@@ -27,36 +31,14 @@ const reportRouter = require('./routes/admin/orders');
 const deltRouter = require('./routes/admin/delete')
 const imgRouter = require('./routes/admin/image');
 const recImage = require('./routes/admin/receiveImage');
+const LogRouter = require('./routes/LoginPage');
+const regRouter = require('./routes/Register')
+const upRouter = require('./routes/admin/Update')
+const usRouter = require('./routes/User/canPage')
+const addUsRouter = require('./routes/User/DataPage')
 
 
 var app = express();
-
-function auth(req,res,next) {
-  console.log(req.headers);
-
-  var authHeader = req.headers.authorization;
-  if (!authHeader) {
-    const err = new Error('You are not authenticated!');
-    res.setHeader('www-Authenticate', 'Basic')
-    err.status = 401;
-    return next(err);
-  }
-  var auth = new Buffer(authHeader.split(' ')[1], 'base64').toString().split(':');
-  var username = auth[0];
-  var password = auth[1];
-  if (username === 'natnael' && password === 'nati1212') {
-    next();
-  }
-  else {
-    const err = new Error('You are not authenticated!');
-    res.setHeader('www-Authenticate', 'Basic')
-    err.status = 401;
-    return next(err);
-  }
-}
-app.use(auth)
-
-
 // view engine setup
 app.set('views', path.resolve(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -66,6 +48,36 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.resolve(__dirname, 'public')));
+app.use(session({
+  secret: 'secret',
+  resave: true,
+  saveUninitialized: true,
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+app.use(flash());
+
+app.use((req, res, next) => {
+  res.locals.success_msg = req.flash('success_msg')
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
+
+  next();
+
+})
+
+
+// app.use(session({
+//   secret: 'dhakfhieufhjdahfehariehfdsahfih',
+//   resave: false,
+//   saveUninitialized: false
+// }));
+// app.use(flash);
+// app.use(passport.initialize());
+// app.use(passport.session())
+
 
 app.use('/',indexRouter)
 app.use('/login', loginRouter);
@@ -81,6 +93,12 @@ app.use('/report', reportRouter);
 app.use('/delete/', deltRouter);
 app.use('/add', imgRouter);
 app.use('/image', recImage);
+app.use('/mainLogin', LogRouter);
+app.use('/register',regRouter)
+app.use('/update',upRouter)
+app.use('/addData', addUsRouter)
+app.use('/userData',usRouter)
+
 
 
 // catch 404 and forward to error handler
