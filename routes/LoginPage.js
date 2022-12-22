@@ -11,7 +11,7 @@ const notAuth = require('./notAuth')
 module.exports= router.post('/',notAuth,async (req, res, next) => {
     try {
         passport.authenticate('local', {
-            successRedirect: '/can',
+            successRedirect: '/home',
             failureRedirect: '/mainLogin',
             badRequestMessage:'Please fill the field',
             failureFlash:true

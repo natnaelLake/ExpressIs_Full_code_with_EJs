@@ -13,7 +13,7 @@ const passport = require('passport');
 const session = require('express-session');
 const flash = require('connect-flash');
 require('./config/passport')(passport)
-
+var methodOverride = require('method-override')
 
 const db = mongoose.connect(url);
 var indexRouter = require('./routes/index');
@@ -36,13 +36,19 @@ const regRouter = require('./routes/Register')
 const upRouter = require('./routes/admin/Update')
 const usRouter = require('./routes/User/canPage')
 const addUsRouter = require('./routes/User/DataPage')
-
+const logoutRouter = require('./routes/logout')
 
 var app = express();
 // view engine setup
 app.set('views', path.resolve(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.use(methodOverride('_method'))
 
+
+
+ 
+// override with POST having ?_method=DELETE
+app.use(methodOverride('_method'))
 // app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -98,7 +104,7 @@ app.use('/register',regRouter)
 app.use('/update',upRouter)
 app.use('/addData', addUsRouter)
 app.use('/userData',usRouter)
-
+app.use('/logout',logoutRouter)
 
 
 // catch 404 and forward to error handler
