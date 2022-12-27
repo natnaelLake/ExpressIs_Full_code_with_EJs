@@ -13,9 +13,7 @@ const passport = require('passport');
 const session = require('express-session');
 const flash = require('connect-flash');
 require('./config/passport')(passport)
-var methodOverride = require('method-override')
-
-const db = mongoose.connect(url);
+var methodOverride = require('method-override');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const loginRouter = require('./routes/login');
@@ -41,12 +39,12 @@ const upCardRouter = require('./routes/admin/updateCard');
 const up =  require("./routes/admin/updateCard")
 const updRouter = require('./routes/')
 
-
+mongoose.set('strictQuery', false)
+const db = mongoose.connect(url);
 var app = express();
 // view engine setup
 app.set('views', path.resolve(__dirname, 'views'));
 app.set('view engine', 'ejs');
-mongoose.set('strictQuery', false)
 
 
  

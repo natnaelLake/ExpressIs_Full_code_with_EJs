@@ -19,10 +19,7 @@ const storage = multer.diskStorage({
     }
 });
 const upload = multer({storage:storage});
-router.post('/:id',upload.single('image'), async (req, res,images)=>{
-    if(storage.filename == null){
-        storage.filename = req.body.imageFirst;
-    }
+router.post('/:id',upload.single('image'), async (req, res)=>{
     id=req.params.id
     const {title,desc} = req.body;
     const items = {
@@ -30,18 +27,18 @@ router.post('/:id',upload.single('image'), async (req, res,images)=>{
             data: fs.readFileSync(path.join(__dirname + '../../../public/images/' + req.file.filename )),
             contentType: req.file.mimetype        }
 }
-console.log(id,title,desc,items)
 
 Images.updateOne({_id:req.params.id}, {$set:{title:title,desc:desc,img:items.img}},(err)=>
    { if (err) {
         console.log(err);
     }
-})
     Images.find({}, (err,name) => {
         res.render('admin/jobs', {
             imageData: name
         });
     })  
+})
+    
 }
 
 );
