@@ -36,14 +36,17 @@ const regRouter = require('./routes/Register')
 const upRouter = require('./routes/admin/Update')
 const usRouter = require('./routes/User/canPage')
 const addUsRouter = require('./routes/User/DataPage')
-const logoutRouter = require('./routes/logout')
+const logoutRouter = require('./routes/logout');
+const upCardRouter = require('./routes/admin/updateCard');
+const up =  require("./routes/admin/updateCard")
+const updRouter = require('./routes/')
+
 
 var app = express();
 // view engine setup
 app.set('views', path.resolve(__dirname, 'views'));
 app.set('view engine', 'ejs');
-app.use(methodOverride('_method'))
-
+mongoose.set('strictQuery', false)
 
 
  
@@ -105,7 +108,7 @@ app.use('/update',upRouter)
 app.use('/addData', addUsRouter)
 app.use('/userData',usRouter)
 app.use('/logout',logoutRouter)
-
+app.use('/updateCard',up)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%-include('../head')%>
+</head>
+<body>
+    <%-include('../header')%>
+    <div class="container-fluid">
+        <div class="row">
+            <%-include('./dashHead')%>
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                <h3 class="text-center text-primary">Add Cards</h3>
+                <hr class="text-primary">
+                <div class="admin_upload-file">
+                    <div class="form-group">
+                        <form method="POST" action="/updateCard/<%=data._id%>" enctype="multipart/form-data" >
+                            <input type="text" name="title" id="myFile" class="admin_input form-control" placeholder="Title" value = "<%= data.title %>">
+                            <br>
+                            <textarea name="desc" id="" cols="30" rows="8" class="admin_input form-control" placeholder="Image Description" ><%= data.desc %></textarea>
+                            <br>
+                            <img src="data:image<%= data.img.contentType %>;base64,
+                                      <%= data.img.data.toString('base64')%>" name = "imageFirst"alt="" >
+                            <input type="file" name="image" id="myFile" class="admin_input form-control" required >
+                            <br>
+                            <input type="submit" class="btn-primary text-center" value="Submit">
+                        </form>
+                    </div>
+                </div>
+    </main>
+    </div>
+    </div>
+</body>
+</html>
