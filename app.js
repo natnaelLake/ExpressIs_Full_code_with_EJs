@@ -14,6 +14,11 @@ const session = require('express-session');
 const flash = require('connect-flash');
 require('./config/passport')(passport)
 var methodOverride = require('method-override');
+const cors = require('cors')
+
+
+
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const loginRouter = require('./routes/login');
@@ -38,6 +43,8 @@ const logoutRouter = require('./routes/logout');
 const upCardRouter = require('./routes/admin/updateCard');
 const up =  require("./routes/admin/updateCard")
 const updRouter = require('./routes/')
+const reactUserRout = require('./routes/User/fromReact')
+
 
 mongoose.set('strictQuery', false)
 const db = mongoose.connect(url);
@@ -52,6 +59,9 @@ app.set('view engine', 'ejs');
 app.use(methodOverride('_method'))
 // app.use(logger('dev'));
 app.use(express.json());
+app.use(cors({
+  origin:'*'
+}))
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.resolve(__dirname, 'public')));
@@ -107,7 +117,7 @@ app.use('/addData', addUsRouter)
 app.use('/userData',usRouter)
 app.use('/logout',logoutRouter)
 app.use('/updateCard',up)
-
+app.use('/reactReg',reactUserRout)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

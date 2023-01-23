@@ -1,20 +1,26 @@
 const mongoose = require('mongoose');
 
-
 const login =  mongoose.Schema({
-    username: {
+    fname: {
+        type: String,
+        required: true
+    },
+    lname: {
+        type: String,
+        required: true
+    },
+    email: {
         type: String,
         required: true,
-        unique:true
     },
     password: {
         type: String,
         required:true
     },
-    role:{
+    phoneNumber:{
         type:Number,
-        default:0
+        default:0934627708
     }
 })
 
-module.exports = mongoose.model('Login',login)
+module.exports = mongoose.model('User',login)

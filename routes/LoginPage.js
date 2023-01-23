@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const User = require('../models/User')
 const passport = require('passport')
 const notAuth = require('./notAuth')
-const roleAuth = require('./Role')
+// const roleAuth = require('./Role')
 const Register = require('../models/RegUser')
 
 
@@ -14,8 +14,8 @@ module.exports= router.post('/',notAuth,async (req, res, next) => {
         
         Register.findOne({email:req.body.email},(err,result)=>{
             if(err) throw err;
-            console.log(typeof(result));
-            roleAuth(result);
+            // console.log(typeof(result));
+            // roleAuth(result);
 
         });
         passport.authenticate('local', {
